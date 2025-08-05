@@ -8,23 +8,25 @@ public class ObjectFaderEditor : Editor
     {
         DrawDefaultInspector();
 
-        GUILayout.Space(10);
-        GUILayout.Label("Test Fade Controls", EditorStyles.boldLabel);
+        if (!Application.isPlaying)
+        {
+            GUI.enabled = false;
+            GUILayout.Button("Fade In (Runtime Only)");
+            GUILayout.Button("Fade Out (Runtime Only)");
+            GUI.enabled = true;
+            return;
+        }
 
         ObjectFader fader = (ObjectFader)target;
 
-        GUI.enabled = Application.isPlaying;
-
-        if (GUILayout.Button("⤴ Fade In"))
+        if (GUILayout.Button("Fade In"))
         {
             fader.FadeIn();
         }
 
-        if (GUILayout.Button("⤵ Fade Out"))
+        if (GUILayout.Button("Fade Out"))
         {
             fader.FadeOut();
         }
-
-        GUI.enabled = true;
     }
 }
